@@ -1,0 +1,33 @@
+/* Variables */
+
+:root {
+    --primary-color: #333;
+    --secondary-color: #fff;
+    --accent-color: #ff7700;
+    --secondary-accent-color: #ff4141;
+    --spacing-unit: 1rem;
+}
+
+/* Normalize */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    color: #333
+}
+
+button {
+    all: unset;
+    cursor: pointer;
+}
