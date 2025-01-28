@@ -1,26 +1,26 @@
 // Addition function 
 
-const add = function(a, b) {
+function add(a, b) {
     return a + b;
 }
 
 // Subtraction function 
 
 
-const subtract = function(a , b) {
+function subtract(a, b) {
     return a - b;
 }
 
 // Multiplication function 
 
-const multiply = function(a, b) {
+function multiply(a, b) {
     return a * b;
 }
 
 // Division function
 
-const divide = function( a, b) {
-    return a / b; 
+function divide(a, b) {
+    return a / b;
 }
 
 // Calculator operators
@@ -28,3 +28,16 @@ let numberOne = null;
 let operator = null;
 let numberTwo = null;
 
+// Operate function 
+
+const operate = (numberOne, operator, numberTwo) => {
+    if (operator === "+") {
+        return add(numberOne, numberTwo);
+    } else if (operator === "-") {
+        return subtract(numberOne, numberTwo);
+    } else if (operator === "*") {
+        return multiply(numberOne, numberTwo);
+    } else if (operator === "/") {
+        return divide(numberOne, numberTwo);
+    };
+};
