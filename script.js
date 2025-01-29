@@ -54,9 +54,14 @@ const operate = (numberOne, operator, numberTwo) => {
 
 digits.forEach((digit) => {
     digit.addEventListener("click", () => {
-        screen.textContent += digit.innerHTML;
+        if (screen.textContent.length < 12 && (digit.innerHTML !== "." || !screen.textContent.includes("."))) {
+            screen.textContent += digit.innerHTML;
+        }
     });
-});        
+});
+
+
+       
 
 // Clear button function
 
