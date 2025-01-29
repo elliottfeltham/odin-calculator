@@ -1,26 +1,43 @@
-// Global Variables
+// DOM Elements
 
 const buttons = document.querySelectorAll("button");
 const digits = document.querySelectorAll(".digit");
 const screen = document.querySelector(".screen");
 const clearButton = document.querySelector(".clear");
 const operators = document.querySelectorAll(".operator");
+const plus = document.querySelector(".add");
+const minus = document.querySelector(".subtract");
+const times = document.querySelector(".multiply");
+const obelus = document.querySelector(".divide");
+const equals = document.querySelector(".equal");
+
+
+// Global Variables
+
+let numberOne = null;
+let numberTwo = null;
+let operation = null;
 let screenDigits = null;
 
-// Addition function 
+
+// Flag for resetting screen
+
+let clearDisplay = false;
+
+
+// Addition function
 
 function add(a, b) {
     return a + b;
 }
 
-// Subtraction function 
-
+// Subtraction function
 
 function subtract(a, b) {
     return a - b;
 }
 
-// Multiplication function 
+// Multiplication function
 
 function multiply(a, b) {
     return a * b;
@@ -32,58 +49,98 @@ function divide(a, b) {
     return a / b;
 }
 
-// Operate function 
+// Operate function
 
-const operate = (numberOne, operator, numberTwo) => {
-    if (operator === "+") {
+const operate = (numberOne, operation, numberTwo) => {
+    if (operation === "+") {
         return add(numberOne, numberTwo);
-    } else if (operator === "-") {
+    } else if (operation === "-") {
         return subtract(numberOne, numberTwo);
-    } else if (operator === "*") {
+    } else if (operation === "*") {
         return multiply(numberOne, numberTwo);
-    } else if (operator === "/") {
+    } else if (operation === "/") {
         return divide(numberOne, numberTwo);
-    };
+    }
 };
 
-// Calculator function
-
-    // store first value from screenDigits on operator click
-    // store chosen operator in a variable
-    // set screenDigits variable to zero
-    // clear display when new digits entered
-    // store second value from screen digits when equals is pressed
-    // call operate function when equals is pressed
-    // assign operate return value to screenDigits
 
 // Screen population function
 
 digits.forEach((digit) => {
     digit.addEventListener("click", () => {
-        if (screen.textContent.length < 12 && (digit.innerHTML !== "." || !screen.textContent.includes("."))) {
+
+        if (clearDisplay) {
+            screen.textContent = "";
+            clearDisplay = false;
+        }
+
+        if (
+            screen.textContent.length < 12 &&
+            (digit.innerHTML !== "." || !screen.textContent.includes("."))
+        ) {
             screenDigits = screen.textContent += digit.innerHTML;
         }
     });
 });
 
-// Clear button function
 
-function clearDisplay () {
-        screen.innerHTML = "";
-};
+// Clear button function
 
 clearButton.addEventListener("click", () => {
     screen.innerHTML = "";
+    operator = null;
+    numberOne = null;
+    numberTwo = null;
 });
 
-// Button animation 
+// Button animation
 
 buttons.forEach((button) => {
-  button.addEventListener("click", () => {
-    button.style.transform = "scale(0.9)";
-    setTimeout(() => {
-      button.style.transform = "scale(1)";
-    }, 100);
-  });
+    button.addEventListener("click", () => {
+        button.style.transform = "scale(0.9)";
+        setTimeout(() => {
+            button.style.transform = "scale(1)";
+        }, 100);
+    });
 });
 
+
+// First half of calculation
+
+operators.forEach((operator) => {
+    operator.addEventListener("click", () => {
+        numberOne = screenDigits;
+
+        if (operator === plus) {
+            operation = "+";
+            clearDisplay = true;
+        } else if (operator === minus) {
+            operation = "-";
+            clearDisplay = true;
+        } else if (operator === times) {
+            operation = "*";
+            clearDisplay = true;
+        } else if (operator === obelus) {
+            operation = "/";
+            clearDisplay = true;
+        }
+    });
+});
+
+// Second half of calculation
+
+equals.addEventListener("click", () => {
+    numberTwo = screenDigits;
+    let answer = operate(numberOne, operation, numberTwo);
+    console.log(answer);
+    screen.textContent = answer;
+    clearDisplay = true;
+    test();
+})
+
+function test() {
+    console.log(`Number one is ${numberOne}`)
+    console.log(`Operator is ${operation}`)
+    console.log(`Number two is ${numberTwo}`)
+    console.log(`Screen Digits is ${screenDigits}`)
+}
