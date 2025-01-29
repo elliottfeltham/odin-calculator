@@ -1,10 +1,11 @@
-// DOM Variables
+// Global Variables
 
 const buttons = document.querySelectorAll("button");
 const digits = document.querySelectorAll(".digit");
 const screen = document.querySelector(".screen");
 const clearButton = document.querySelector(".clear");
-
+const operators = document.querySelectorAll(".operator");
+let screenDigits = null;
 
 // Addition function 
 
@@ -31,11 +32,6 @@ function divide(a, b) {
     return a / b;
 }
 
-// Calculator operators
-let numberOne = null;
-let operator = null;
-let numberTwo = null;
-
 // Operate function 
 
 const operate = (numberOne, operator, numberTwo) => {
@@ -50,24 +46,35 @@ const operate = (numberOne, operator, numberTwo) => {
     };
 };
 
+// Calculator function
+
+    // store first value from screenDigits on operator click
+    // store chosen operator in a variable
+    // set screenDigits variable to zero
+    // clear display when new digits entered
+    // store second value from screen digits when equals is pressed
+    // call operate function when equals is pressed
+    // assign operate return value to screenDigits
+
 // Screen population function
 
 digits.forEach((digit) => {
     digit.addEventListener("click", () => {
         if (screen.textContent.length < 12 && (digit.innerHTML !== "." || !screen.textContent.includes("."))) {
-            screen.textContent += digit.innerHTML;
+            screenDigits = screen.textContent += digit.innerHTML;
         }
     });
 });
 
-
-       
-
 // Clear button function
+
+function clearDisplay () {
+        screen.innerHTML = "";
+};
 
 clearButton.addEventListener("click", () => {
     screen.innerHTML = "";
-})
+});
 
 // Button animation 
 
