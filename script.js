@@ -1,3 +1,11 @@
+// DOM Variables
+
+const buttons = document.querySelectorAll("button");
+const digits = document.querySelectorAll(".digit");
+const screen = document.querySelector(".screen");
+const clearButton = document.querySelector(".clear");
+
+
 // Addition function 
 
 function add(a, b) {
@@ -41,3 +49,29 @@ const operate = (numberOne, operator, numberTwo) => {
         return divide(numberOne, numberTwo);
     };
 };
+
+// Screen population function
+
+digits.forEach((digit) => {
+    digit.addEventListener("click", () => {
+        screen.textContent += digit.innerHTML;
+    });
+});        
+
+// Clear button function
+
+clearButton.addEventListener("click", () => {
+    screen.innerHTML = "";
+})
+
+// Button animation 
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    button.style.transform = "scale(0.9)";
+    setTimeout(() => {
+      button.style.transform = "scale(1)";
+    }, 100);
+  });
+});
+
