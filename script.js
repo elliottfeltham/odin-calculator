@@ -151,14 +151,17 @@ function calculate() {
 
         numberTwo = parseFloat(screenDigits);
         numberOne = parseFloat(numberOne);
+        console.log(`Number one is ${numberOne}`)
 
         let answer = operate(numberOne, operation, numberTwo);
         answer = parseFloat(answer.toFixed(4));
 
         if (operation === "/" && numberTwo === 0) {
             screen.textContent = "M8";
-        } else {
+        } else if (answer < 999999999999) {
             screen.textContent = answer;
+        } else {
+            screen.textContent = "ERROR";
         }
 
         numberOne = answer;
@@ -177,7 +180,6 @@ equals.addEventListener("click", calculate);
 
 
 function test() {
-    console.log(`Number one is ${numberOne}`)
     console.log(`Operator is ${operation}`)
     console.log(`Number two is ${numberTwo}`)
     console.log(`Screen Digits is ${screenDigits}`)
