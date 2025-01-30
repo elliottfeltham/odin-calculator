@@ -23,6 +23,7 @@ let screenDigits = null;
 // Flag for resetting screen
 
 let clearDisplay = false;
+let operatorExists = false;
 
 
 // Addition function
@@ -85,13 +86,15 @@ digits.forEach((digit) => {
 
 
 // Clear button function
-
-clearButton.addEventListener("click", () => {
+function reset() {
     screen.innerHTML = "";
     operator = null;
     numberOne = null;
     numberTwo = null;
-});
+    screenDigits = null;
+}
+
+clearButton.addEventListener("click", reset);
 
 // Button animation
 
@@ -109,38 +112,74 @@ buttons.forEach((button) => {
 
 operators.forEach((operator) => {
     operator.addEventListener("click", () => {
-        numberOne = screenDigits;
+
+        if (operatorExists) {
+            numberTwo = screenDigits;
+            let answer = operate(numberOne, operation, numberTwo);
+            screen.textContent = answer;
+            numberOne = answer;
+        } else {
+            numberOne = screenDigits;
+        }
+
 
         if (operator === plus) {
             operation = "+";
             clearDisplay = true;
+            operatorExists = true;
         } else if (operator === minus) {
             operation = "-";
             clearDisplay = true;
+            operatorExists = true;
         } else if (operator === times) {
             operation = "*";
             clearDisplay = true;
+            operatorExists = true;
         } else if (operator === obelus) {
             operation = "/";
             clearDisplay = true;
+            operatorExists = true;
         }
     });
 });
 
 // Second half of calculation
 
-equals.addEventListener("click", () => {
-    numberTwo = screenDigits;
-    let answer = operate(numberOne, operation, numberTwo);
-    console.log(answer);
-    screen.textContent = answer;
+function calculate() {
+
+    if (numberOne !== null && operation !== null) {
+
+        numberTwo = parseFloat(screenDigits);
+        numberOne = parseFloat(numberOne);
+
+        let answer = operate(numberOne, operation, numberTwo);
+        answer = parseFloat(answer.toFixed(4));
+
+        if (operation === "/" && numberTwo === 0) {
+            screen.textContent = "M8";
+        } else {
+            screen.textContent = answer;
+        }
+
+        numberOne = answer;
+        screenDigits = answer;
+    } else {
+        reset();
+    }
+
     clearDisplay = true;
+    operatorExists = false;
     test();
-})
+};
+
+equals.addEventListener("click", calculate);
+
+
 
 function test() {
     console.log(`Number one is ${numberOne}`)
     console.log(`Operator is ${operation}`)
     console.log(`Number two is ${numberTwo}`)
     console.log(`Screen Digits is ${screenDigits}`)
+    console.log(`Operator Exists is ${operatorExists}`)
 }
