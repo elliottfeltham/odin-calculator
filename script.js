@@ -110,6 +110,7 @@ buttons.forEach((button) => {
     });
 });
 
+// Function for choosing operator and assigning values to number variables
 
 function chooseOperator(selectedOperator) {
     if (operatorExists && clearDisplay) {
@@ -131,6 +132,8 @@ function chooseOperator(selectedOperator) {
     operatorExists = true;
 }
 
+// Choose operator on click
+
 operators.forEach((operator) => {
     operator.addEventListener("click", () => {
 
@@ -146,13 +149,14 @@ operators.forEach((operator) => {
     });
 });
 
+// Function for calculating the sum with the variables
+
 function calculate() {
 
     if (numberOne !== null && operation !== null) {
 
         numberTwo = parseFloat(screenDigits);
         numberOne = parseFloat(numberOne);
-        console.log(`Number one is ${numberOne}`)
 
         let answer = operate(numberOne, operation, numberTwo);
         answer = parseFloat(answer.toFixed(4));
@@ -167,22 +171,14 @@ function calculate() {
 
         numberOne = answer;
         screenDigits = answer;
+        
     } else {
         reset();
     }
 
     clearDisplay = true;
     operatorExists = false;
-    test();
 };
 
 equals.addEventListener("click", calculate);
 
-
-
-function test() {
-    console.log(`Operator is ${operation}`)
-    console.log(`Number two is ${numberTwo}`)
-    console.log(`Screen Digits is ${screenDigits}`)
-    console.log(`Operator Exists is ${operatorExists}`)
-}
