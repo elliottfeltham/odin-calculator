@@ -2,9 +2,12 @@
 
 const buttons = document.querySelectorAll("button");
 const digits = document.querySelectorAll(".digit");
+const operators = document.querySelectorAll(".operator");
+
 const screen = document.querySelector(".screen");
 const clearButton = document.querySelector(".clear");
-const operators = document.querySelectorAll(".operator");
+const backButton = document.querySelector(".delete");
+
 const plus = document.querySelector(".add");
 const minus = document.querySelector(".subtract");
 const times = document.querySelector(".multiply");
@@ -20,7 +23,7 @@ let operation = null;
 let screenDigits = null;
 
 
-// Flag for resetting screen
+// Flag for resetting screen and checking operator buttons
 
 let clearDisplay = false;
 let operatorExists = false;
@@ -108,42 +111,40 @@ buttons.forEach((button) => {
 });
 
 
-// First half of calculation
+function chooseOperator(selectedOperator) {
+    if (operatorExists && clearDisplay) {
+        operation = selectedOperator;
+        return;
+    }
+
+    if (operatorExists) {
+        numberTwo = screenDigits;
+        let answer = operate(numberOne, operation, numberTwo);
+        screen.textContent = answer;
+        numberOne = answer;
+    } else {
+        numberOne = parseFloat(screenDigits);
+    }
+
+    operation = selectedOperator;
+    clearDisplay = true;
+    operatorExists = true;
+}
 
 operators.forEach((operator) => {
     operator.addEventListener("click", () => {
 
-        if (operatorExists) {
-            numberTwo = screenDigits;
-            let answer = operate(numberOne, operation, numberTwo);
-            screen.textContent = answer;
-            numberOne = answer;
-        } else {
-            numberOne = screenDigits;
-        }
-
-
         if (operator === plus) {
-            operation = "+";
-            clearDisplay = true;
-            operatorExists = true;
+            chooseOperator("+");
         } else if (operator === minus) {
-            operation = "-";
-            clearDisplay = true;
-            operatorExists = true;
+            chooseOperator("-");
         } else if (operator === times) {
-            operation = "*";
-            clearDisplay = true;
-            operatorExists = true;
+            chooseOperator("*");
         } else if (operator === obelus) {
-            operation = "/";
-            clearDisplay = true;
-            operatorExists = true;
+            chooseOperator("/");
         }
     });
 });
-
-// Second half of calculation
 
 function calculate() {
 
