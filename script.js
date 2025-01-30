@@ -110,6 +110,16 @@ buttons.forEach((button) => {
     });
 });
 
+// Function to undo last input 
+function backspace() {
+    if (!clearDisplay) {
+        screen.textContent = screen.textContent.slice(0, -1);
+        screenDigits = screen.textContent;
+    }
+}
+
+backButton.addEventListener("click", backspace);
+
 // Function for choosing operator and assigning values to number variables
 
 function chooseOperator(selectedOperator) {
@@ -171,7 +181,7 @@ function calculate() {
 
         numberOne = answer;
         screenDigits = answer;
-        
+
     } else {
         reset();
     }
