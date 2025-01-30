@@ -110,7 +110,8 @@ buttons.forEach((button) => {
     });
 });
 
-// Function to undo last input 
+// Function to undo last input
+
 function backspace() {
     if (!clearDisplay) {
         screen.textContent = screen.textContent.slice(0, -1);
