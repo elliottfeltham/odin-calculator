@@ -53,6 +53,7 @@ function divide(a, b) {
     return a / b;
 }
 
+
 // Operate function
 
 const operate = (numberOne, operation, numberTwo) => {
@@ -88,39 +89,6 @@ digits.forEach((digit) => {
 });
 
 
-// Clear button function
-function reset() {
-    screen.innerHTML = "";
-    operator = null;
-    numberOne = null;
-    numberTwo = null;
-    screenDigits = null;
-}
-
-clearButton.addEventListener("click", reset);
-
-// Button animation
-
-buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-        button.style.transform = "scale(0.9)";
-        setTimeout(() => {
-            button.style.transform = "scale(1)";
-        }, 100);
-    });
-});
-
-// Function to undo last input
-
-function backspace() {
-    if (!clearDisplay) {
-        screen.textContent = screen.textContent.slice(0, -1);
-        screenDigits = screen.textContent;
-    }
-}
-
-backButton.addEventListener("click", backspace);
-
 // Function for choosing operator and assigning values to number variables
 
 function chooseOperator(selectedOperator) {
@@ -130,7 +98,7 @@ function chooseOperator(selectedOperator) {
     }
 
     if (operatorExists) {
-        numberTwo = screenDigits;
+        numberTwo = parseFloat(screenDigits);
         let answer = operate(numberOne, operation, numberTwo);
         screen.textContent = answer;
         numberOne = answer;
@@ -142,6 +110,7 @@ function chooseOperator(selectedOperator) {
     clearDisplay = true;
     operatorExists = true;
 }
+
 
 // Choose operator on click
 
@@ -159,6 +128,7 @@ operators.forEach((operator) => {
         }
     });
 });
+
 
 // Function for calculating the sum with the variables
 
@@ -193,3 +163,40 @@ function calculate() {
 
 equals.addEventListener("click", calculate);
 
+
+// Clear button function
+function reset() {
+    screen.textContent = "";
+    numberOne = null;
+    numberTwo = null;
+    screenDigits = null;
+    operation = null;
+    operatorExists = false;
+    clearDisplay = false;
+}
+
+clearButton.addEventListener("click", reset);
+
+
+// Function to undo last input
+
+function backspace() {
+    if (!clearDisplay) {
+        screen.textContent = screen.textContent.slice(0, -1);
+        screenDigits = screen.textContent;
+    }
+}
+
+backButton.addEventListener("click", backspace);
+
+
+// Button animation
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        button.style.transform = "scale(0.9)";
+        setTimeout(() => {
+            button.style.transform = "scale(1)";
+        }, 100);
+    });
+});
